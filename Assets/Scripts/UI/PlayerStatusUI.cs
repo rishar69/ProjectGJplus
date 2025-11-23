@@ -27,6 +27,9 @@ public class PlayerStatusUI : MonoBehaviour
     public TMP_Text weaponNameText;
     public TMP_Text ammoText;
 
+    [Header("Score UI")]
+    public TMP_Text scoreText;
+
     [Header("Smooth Settings")]
     public float smoothSpeed = 10f;
 
@@ -67,6 +70,12 @@ public class PlayerStatusUI : MonoBehaviour
 
         levelText.text = "LV " + playerLevel.level;
 
+        if (ScoreManager.Instance != null)
+            ScoreManager.Instance.onScoreChanged += UpdateScoreUI;
+
+        UpdateScoreUI(ScoreManager.Instance != null ? ScoreManager.Instance.Score : 0);
+
+
         // Initialize weapon UI
         UpdateWeaponUI();
     }
@@ -78,6 +87,12 @@ public class PlayerStatusUI : MonoBehaviour
         xpSlider.value = Mathf.Lerp(xpSlider.value, xpTarget, Time.deltaTime * smoothSpeed);
 
         UpdateAmmoOnly();
+    }
+
+    private void UpdateScoreUI(int newScore)
+    {
+        if (scoreText != null)
+            scoreText.text = "Score: " + newScore;
     }
 
     private void OnHealthChanged(float percent)
