@@ -5,9 +5,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private InputAction playerInput;
+
     private Vector2 movement;
     private Rigidbody2D rb;
-    
+    public bool isShielding = false;
 
     private void Awake()
     {
@@ -26,11 +27,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (isShielding)
+        {
+            movement = Vector2.zero; // prevent input while shielding
+            return;
+        }
+
         movement = playerInput.ReadValue<Vector2>();
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2 (movement.x, movement.y)*moveSpeed;
+        rb.linearVelocity = movement * moveSpeed;
+
+        // Ensure player stops completely when shielding
+        if (isShielding)
+            rb.linearVelocity = Vector2.zero;
     }
 }
