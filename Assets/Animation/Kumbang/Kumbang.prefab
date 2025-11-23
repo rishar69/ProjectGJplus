@@ -44,12 +44,11 @@ GameObject:
   - component: {fileID: 5721799809237091815}
   - component: {fileID: 8657383087858629430}
   - component: {fileID: 4938922849363654626}
-  - component: {fileID: 2897425992691492781}
   - component: {fileID: 4712958131197144026}
   - component: {fileID: 3906764016326190344}
   m_Layer: 0
   m_Name: Kumbang
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -82,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e95677c52dab36f479e4d74621b82765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contactDamage: 10
+  contactDamage: 5
 --- !u!114 &5721799809237091815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a8603fb9501f94aa4bfb3179e356ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -122,7 +121,7 @@ MonoBehaviour:
   - {fileID: 3626930279554922074}
   - {fileID: 3656405928478993004}
   flashDuration: 0.07
-  flashColor: {r: 0.9622642, g: 0.24510492, b: 0.24510492, a: 1}
+  flashColor: {r: 0.79622644, g: 0.24875598, b: 0.21483088, a: 1}
   knockbackForce: 1
   stunDuration: 0.15
   stunned: 0
@@ -145,28 +144,6 @@ MonoBehaviour:
   speed: 5
   visualRoot: {fileID: 8514751735620886081}
   facingRight: 0
---- !u!114 &2897425992691492781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 983344753307773964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab35cc8edd716704f8899c6f18683820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: {fileID: 5721799809237091815}
-  animator: {fileID: 1489731733802512671}
-  renderers:
-  - {fileID: 7186738692765860030}
-  - {fileID: 6124548047812929516}
-  - {fileID: 7492969786092278522}
-  - {fileID: 2720011549084832801}
-  - {fileID: 3626930279554922074}
-  - {fileID: 3656405928478993004}
-  dissolveSpeed: 0.4
 --- !u!50 &4712958131197144026
 Rigidbody2D:
   serializedVersion: 5
@@ -193,7 +170,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 2
 --- !u!58 &3906764016326190344
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -909,6 +886,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: e04c85fc72e4c274ea24bb0c7c32ec64, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1489731733802512671}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: e04c85fc72e4c274ea24bb0c7c32ec64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1703240147308798482}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: e04c85fc72e4c274ea24bb0c7c32ec64, type: 3}
 --- !u!4 &913065088699273282 stripped
 Transform:
@@ -1040,3 +1020,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1703240147308798482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8218363328501752778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab35cc8edd716704f8899c6f18683820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 5721799809237091815}
+  animator: {fileID: 1489731733802512671}
+  renderers:
+  - {fileID: 7186738692765860030}
+  - {fileID: 6124548047812929516}
+  - {fileID: 7492969786092278522}
+  - {fileID: 2720011549084832801}
+  - {fileID: 3626930279554922074}
+  - {fileID: 3656405928478993004}
+  dissolveSpeed: 0.4
+  xpReward: 15

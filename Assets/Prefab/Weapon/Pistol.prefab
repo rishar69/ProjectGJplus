@@ -335,7 +335,7 @@ MonoBehaviour:
   magazineSize: 12
   currentAmmo: 12
   damage: 10
-  fireRate: 2
+  fireRate: 4
   reloadDuration: 3
   WeaponIcon: {fileID: 4910465537759540958, guid: 39c3801216524b742b32a8daec7cec48, type: 3}
   bulletPrefab: {fileID: 2847511356022224388, guid: ae374e342de7b2141ae2e16fc316cae7, type: 3}
