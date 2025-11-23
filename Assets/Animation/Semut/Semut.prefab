@@ -356,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementType: 0
   target: {fileID: 0}
-  moveDirection: 0
+  moveDirection: 1
   destroyDistance: 20
   speed: 5
   visualRoot: {fileID: 3712423647626106092}

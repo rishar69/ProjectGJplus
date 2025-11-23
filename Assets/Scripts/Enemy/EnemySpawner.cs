@@ -4,124 +4,139 @@ using System.Collections.Generic;
 
 public class EnemySpawner2D : MonoBehaviour
 {
-    [Header("Player")]
+  [Header("Player")]
     public Transform player;
 
     [Header("Enemy Prefabs (isi 3 prefab di sini)")]
     public List<GameObject> enemies;
 
-    [Header("Spawn Points (titik tetap di map)")]
-    public List<Transform> spawnPoints;   // isi di Inspector
+    [Header("Camera")]
+    public Camera mainCamera;
 
     [Header("Spawn Settings")]
-    public float spawnInterval = 3f;          // jeda awal antar wave
-    public float minDistanceFromPlayer = 4f;  // minimal jarak spawn point ke player
-    public int baseSpawnCount = 2;            // jumlah musuh awal per wave
+    public float spawnInterval = 3f;        // jeda antar wave
+    public float minDistanceFromPlayer = 2f; // jarak aman dari player
+    public float edgeMargin = 0.5f;         // biar nggak nempel di pinggir layar
+    public int baseSpawnCount = 2;          // jumlah musuh awal per wave
 
     [Header("Difficulty Scaling")]
     public int dangerLevel = 1;
-    public float difficultyIncreaseInterval = 10f; // naik level tiap 10 detik
-    public float spawnIntervalMin = 0.8f;          // batas bawah interval
+    public float difficultyIncreaseInterval = 10f;
+    public float spawnIntervalMin = 0.8f;   // batas minimal interval
 
-    private bool isSpawning = true;
+    private bool isRunning = true;
 
-    void Start()
+    private void Start()
     {
         if (player == null)
         {
             Debug.LogError("EnemySpawner2D: Player belum di-assign!");
-            isSpawning = false;
+            isRunning = false;
             return;
         }
 
         if (enemies == null || enemies.Count == 0)
         {
             Debug.LogError("EnemySpawner2D: List enemies kosong!");
-            isSpawning = false;
+            isRunning = false;
             return;
         }
 
-        if (spawnPoints == null || spawnPoints.Count == 0)
+        if (mainCamera == null)
         {
-            Debug.LogError("EnemySpawner2D: SpawnPoints kosong! Tambahkan titik spawn di Inspector.");
-            isSpawning = false;
+            mainCamera = Camera.main;
+        }
+
+        if (mainCamera == null)
+        {
+            Debug.LogError("EnemySpawner2D: mainCamera belum di-assign dan tidak menemukan Camera.main!");
+            isRunning = false;
             return;
         }
 
-        // Mulai 2 coroutine terpisah: spawn & difficulty
+        // mulai loop spawn & difficulty
         StartCoroutine(SpawnLoop());
         StartCoroutine(DifficultyLoop());
     }
 
-    IEnumerator SpawnLoop()
+    private IEnumerator SpawnLoop()
     {
-        while (isSpawning)
+        while (isRunning)
         {
             SpawnWave();
-            // tunggu sesuai spawnInterval (yang bisa berubah seiring waktu)
             yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    IEnumerator DifficultyLoop()
+    private IEnumerator DifficultyLoop()
     {
-        while (isSpawning)
+        while (isRunning)
         {
             yield return new WaitForSeconds(difficultyIncreaseInterval);
 
             dangerLevel++;
-
-            // makin tinggi level, jeda antar wave makin pendek
             spawnInterval = Mathf.Max(spawnIntervalMin, spawnInterval - 0.1f);
 
             Debug.Log($"[Spawner] Danger Level: {dangerLevel}, SpawnInterval: {spawnInterval}");
         }
     }
 
-    void SpawnWave()
+    private void SpawnWave()
     {
-        // hitung jumlah musuh per wave
         int spawnCount = Mathf.RoundToInt(baseSpawnCount + dangerLevel * 0.7f);
         if (spawnCount < 1) spawnCount = 1;
 
-        // kumpulkan spawn point yang cukup jauh dari player
-        List<Transform> validPoints = GetValidSpawnPoints();
-
-        if (validPoints.Count == 0)
-        {
-            // kalau semua terlalu dekat, pakai semua spawn point sebagai fallback
-            validPoints = spawnPoints;
-        }
-
         for (int i = 0; i < spawnCount; i++)
         {
-            Transform spawnPoint = validPoints[Random.Range(0, validPoints.Count)];
+            Vector2 spawnPos = GetSpawnPositionInCamera();
             GameObject enemyPrefab = GetRandomEnemy();
             if (enemyPrefab == null) continue;
 
-            Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+            // pastikan Z = 0 (top-down 2D)
+            Vector3 finalPos = new Vector3(spawnPos.x, spawnPos.y, 0f);
+            Instantiate(enemyPrefab, finalPos, Quaternion.identity);
         }
     }
 
-    List<Transform> GetValidSpawnPoints()
+    private Vector2 GetSpawnPositionInCamera()
     {
-        List<Transform> result = new List<Transform>();
+        // Info kamera ortho
+        Vector3 camPos = mainCamera.transform.position;
+        float halfHeight = mainCamera.orthographicSize;
+        float halfWidth = halfHeight * mainCamera.aspect;
 
-        foreach (var sp in spawnPoints)
+        // Coba cari posisi yang:
+        // - di dalam area kamera
+        // - cukup jauh dari player
+        for (int i = 0; i < 10; i++)
         {
-            if (sp == null) continue;
+            float x = Random.Range(camPos.x - halfWidth + edgeMargin,
+                                   camPos.x + halfWidth - edgeMargin);
+            float y = Random.Range(camPos.y - halfHeight + edgeMargin,
+                                   camPos.y + halfHeight - edgeMargin);
 
-            float dist = Vector2.Distance(player.position, sp.position);
-            if (dist >= minDistanceFromPlayer)
+            Vector2 candidate = new Vector2(x, y);
+
+            if (Vector2.Distance(candidate, player.position) >= minDistanceFromPlayer)
             {
-                result.Add(sp);
+                return candidate;
             }
         }
 
-        return result;
+        // Fallback: kalau 10x gagal, spawn di kanan player lalu di-clamp ke dalam kamera
+        Vector2 fallback = (Vector2)player.position + Vector2.right * minDistanceFromPlayer;
+
+        float clampedX = Mathf.Clamp(fallback.x,
+                                     camPos.x - halfWidth + edgeMargin,
+                                     camPos.x + halfWidth - edgeMargin);
+        float clampedY = Mathf.Clamp(fallback.y,
+                                     camPos.y - halfHeight + edgeMargin,
+                                     camPos.y + halfHeight - edgeMargin);
+
+        return new Vector2(clampedX, clampedY);
     }
 
-    GameObject GetRandomEnemy()
+    private GameObject GetRandomEnemy()
     {
         if (enemies == null || enemies.Count == 0) return null;
         int index = Random.Range(0, enemies.Count);

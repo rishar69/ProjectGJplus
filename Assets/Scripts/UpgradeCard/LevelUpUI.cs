@@ -42,7 +42,7 @@ public class LevelUpUI : MonoBehaviour
         panel.blocksRaycasts = true;
         panel.interactable = true;
 
-        Time.timeScale = 0f; // pause game during selection
+        Time.timeScale = 1f; // pause game during selection
     }
 
     public void Pick(UpgradeCard card)
