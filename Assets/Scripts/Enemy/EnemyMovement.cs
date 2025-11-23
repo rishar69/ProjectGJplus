@@ -89,12 +89,12 @@ public class EnemyMovement : MonoBehaviour
 
     private void CheckAutoDestroy()
     {
-        float dist = Vector3.Distance(transform.position, spawnPosition);
+        //float dist = Vector3.Distance(transform.position, spawnPosition);
 
-        if (dist >= destroyDistance)
-        {
-            Destroy(gameObject);
-        }
+        //if (dist >= destroyDistance)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
 
