@@ -17,10 +17,10 @@ public class CardRewardUI : MonoBehaviour
     private void Start()
     {
         if (playerLevel == null)
-            playerLevel = FindObjectOfType<PlayerLevel>();
+            playerLevel = FindFirstObjectByType<PlayerLevel>();
 
         if (cardManager == null)
-            cardManager = FindObjectOfType<CardManager>();
+            cardManager = FindFirstObjectByType<CardManager>();
 
         if (playerLevel != null)
         {

@@ -75,7 +75,7 @@ public class EnemyHandler : MonoBehaviour
         if (TryGetComponent<Rigidbody2D>(out var rb))
         {
             rb.linearVelocity = Vector2.zero;
-            rb.isKinematic = true;
+            rb.bodyType = RigidbodyType2D.Kinematic;
         }
     }
 
