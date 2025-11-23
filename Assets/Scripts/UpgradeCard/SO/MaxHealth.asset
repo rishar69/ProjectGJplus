@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c4bb8f3eb03b1468444670800aae0e, type: 3}
+  m_Name: MaxHealth
+  m_EditorClassIdentifier: 
+  cardName: Max Health +20
+  icon: {fileID: -205270267638800340, guid: f6b502723a1ce8e418d260e13f373391, type: 3}
+  type: 1
+  amount: 20
