@@ -1,13 +1,15 @@
 using UnityEngine;
-using System;
 
 public class PlayerWeaponController : MonoBehaviour
 {
     public Weapon[] weapons;
+
     private int currentWeaponIndex = 0;
     private Weapon currentWeapon;
-
     private bool isReloading = false;
+
+    public int CurrentWeaponIndex => currentWeaponIndex;
+    public Weapon CurrentWeapon => currentWeapon;
 
     private void Awake()
     {
@@ -20,28 +22,24 @@ public class PlayerWeaponController : MonoBehaviour
         }
 
         EquipWeapon(currentWeaponIndex);
+
+        // Update UI on start
+            FindFirstObjectByType<PlayerStatusUI>()?.UpdateWeaponUI();
     }
 
     private void Update()
     {
-        // Weapon switch
         if (!isReloading)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1)) EquipWeapon(0);
             if (Input.GetKeyDown(KeyCode.Alpha2) && weapons.Length > 1) EquipWeapon(1);
         }
 
-        // Manual reload
         if (Input.GetKeyDown(KeyCode.R))
-        {
             TryReload();
-        }
 
-        // Auto-reload if ammo is empty
         if (!isReloading && currentWeapon != null && currentWeapon.currentAmmo <= 0)
-        {
             TryReload();
-        }
     }
 
     private void EquipWeapon(int index)
@@ -54,6 +52,9 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeaponIndex = index;
         currentWeapon = weapons[index];
         currentWeapon.gameObject.SetActive(true);
+
+        // Notify UI
+        FindFirstObjectByType<PlayerStatusUI>()?.UpdateWeaponUI();
     }
 
     private void TryReload()
@@ -63,12 +64,11 @@ public class PlayerWeaponController : MonoBehaviour
 
         isReloading = true;
 
-        // Start QTE for reload
         QTEManager.Instance.StartQTE(transform, currentWeapon.reloadDuration, (success) =>
         {
             currentWeapon.RefillAmmo(success);
             Debug.Log($"Reload {(success ? "success" : "failed")}. Ammo: {currentWeapon.currentAmmo}");
-            isReloading = false; // allow future reloads
+            isReloading = false;
         });
     }
 }

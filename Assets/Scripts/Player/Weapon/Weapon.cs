@@ -9,6 +9,8 @@ public abstract class Weapon : MonoBehaviour
     public float damage = 10f;
     public float fireRate = 2f; // shots per second
     public float reloadDuration = 3f;
+    public Sprite WeaponIcon;
+
 
     protected float nextFireTime;
 

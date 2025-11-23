@@ -337,6 +337,7 @@ MonoBehaviour:
   damage: 10
   fireRate: 2
   reloadDuration: 3
+  WeaponIcon: {fileID: 4910465537759540958, guid: 39c3801216524b742b32a8daec7cec48, type: 3}
   bulletPrefab: {fileID: 2847511356022224388, guid: ae374e342de7b2141ae2e16fc316cae7, type: 3}
   firePoint: {fileID: 6836665840714488878}
   muzzleAnimator: {fileID: 7466097733358493993}

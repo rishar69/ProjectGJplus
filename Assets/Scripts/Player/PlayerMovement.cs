@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     public bool isShielding = false;
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+
+
         if (isShielding)
         {
             movement = Vector2.zero;
