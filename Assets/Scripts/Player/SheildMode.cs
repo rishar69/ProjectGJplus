@@ -22,10 +22,16 @@ public class SheildMode : MonoBehaviour
 
     private void Update()
     {
-        // Toggle shield mode
+        // Prevent shield if armor is gone
+        if (armor.CurrentArmor <= 0 && isShielding)
+        {
+            DeactivateShield();
+        }
+
+        // Shield activation
         if (Input.GetKeyDown(shieldKey))
         {
-            ActivateShield();
+            TryActivateShield();
         }
         else if (Input.GetKeyUp(shieldKey))
         {
@@ -33,32 +39,50 @@ public class SheildMode : MonoBehaviour
         }
     }
 
+    private void TryActivateShield()
+    {
+        if (armor.CurrentArmor <= 0)
+        {
+            Debug.Log("Cannot activate shield. Armor depleted!");
+            return;
+        }
+
+        ActivateShield();
+    }
+
     private void ActivateShield()
     {
         isShielding = true;
-        movement.isShielding = true; // Prevent input but keep velocity
+        movement.isShielding = true;
         Debug.Log("Shield activated");
     }
 
     private void DeactivateShield()
     {
         isShielding = false;
-        movement.isShielding = false; // Resume normal input
+        movement.isShielding = false;
         Debug.Log("Shield deactivated");
     }
 
     /// <summary>
-    /// Call this when player is about to take damage
+    /// Called before taking damage
     /// </summary>
     public void AbsorbDamage(ref float damage)
     {
         if (!isShielding) return;
 
+        // If armor breaks while shielding
+        if (armor.CurrentArmor <= 0)
+        {
+            DeactivateShield();
+            return;
+        }
+
         if (damage > 0)
         {
-            armor.TakeDamage(1f);
-            damage = 0f;
-            Debug.Log("Shield absorbed damage. Health unaffected, 1 damage to armor.");
+            armor.TakeDamage(1f);   // reduce armor by 1
+            damage = 0f;           // block health damage
+            Debug.Log("Shield absorbed damage.");
         }
     }
 }

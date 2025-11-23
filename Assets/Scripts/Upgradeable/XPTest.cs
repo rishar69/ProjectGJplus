@@ -1,12 +1,19 @@
 using UnityEngine;
 
-public class XPTest : MonoBehaviour
+public class PlayerLevelTester : MonoBehaviour
 {
-     public PlayerLevel level;
+    public PlayerLevel playerLevel;
 
-    public void Add20XP()
+    [Header("XP Gain Settings")]
+    public int xpPerPress = 50;
+
+    private void Update()
     {
-        level.AddXP(20);
-        Debug.Log("Added 20 XP");
+        // Press T to simulate XP gain
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            playerLevel.AddXP(xpPerPress);
+            Debug.Log($"Added {xpPerPress} XP | Current XP: {playerLevel.currentXP}/{playerLevel.XPNeeded}");
+        }
     }
 }

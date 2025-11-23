@@ -138,5 +138,6 @@ MonoBehaviour:
   damage: 3
   fireRate: 9
   reloadDuration: 3
+  WeaponIcon: {fileID: 3144715818337670686, guid: 4c850d9929598d945bd9603a5b48b76a, type: 3}
   bulletPrefab: {fileID: 2847511356022224388, guid: ae374e342de7b2141ae2e16fc316cae7, type: 3}
   firePoint: {fileID: 2072337907854119992}
