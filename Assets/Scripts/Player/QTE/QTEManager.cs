@@ -26,7 +26,7 @@ public class QTEManager : MonoBehaviour
 
         // auto find CinemachineCamera kalau lupa assign di Inspector
         if (virtualCamera == null)
-            virtualCamera = FindObjectOfType<CinemachineCamera>();
+            virtualCamera = FindFirstObjectByType<CinemachineCamera>();
 
         if (virtualCamera != null)
         {

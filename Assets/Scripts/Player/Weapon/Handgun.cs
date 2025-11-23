@@ -39,13 +39,11 @@ public class Handgun : Weapon
         b.damage = damage;
         b.SetDirection(firePoint.right);
 
-        // 🔥 Trigger muzzle flash animation
         if (muzzleAnimator != null)
         {
             muzzleAnimator.SetTrigger(shootTriggerName);
         }
 
-        // 🔊 FMOD handgun shot
         if (!handgunShotEvent.IsNull)
         {
             AudioManager.Instance.PlayOneShot(handgunShotEvent, firePoint.position);
@@ -53,10 +51,9 @@ public class Handgun : Weapon
 
       if (CameraShake.Instance != null)
 {
-    CameraShake.Instance.ShakeExtreme();       // shake brutal
-    CameraShake.Instance.RecoilKickExtreme(); // recoil brutal
+    CameraShake.Instance.ShakeExtreme();       
+    CameraShake.Instance.RecoilKickExtreme(); 
 }
-        // Ammo
         ConsumeAmmo();
         nextFireTime = Time.time + 1f / fireRate;
     }

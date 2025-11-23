@@ -51,4 +51,13 @@ public class Health : MonoBehaviour
         isDead = true;
         OnDeath?.Invoke();
     }
+
+    public void IncreaseMaxHealth(float amount)
+    {
+        maxHealth += amount;
+        CurrentHealth += amount; // give bonus heal
+        CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
+
+        OnHealthChanged?.Invoke(HealthPercent);
+    }
 }

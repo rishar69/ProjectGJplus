@@ -1436,7 +1436,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1511,6 +1511,7 @@ MonoBehaviour:
   - {fileID: 5152639206633579907}
   - {fileID: 7781010433627185335}
   dissolveSpeed: 0.4
+  xpReward: 50
 --- !u!114 &5346150352641844382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1523,7 +1524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb56a17605254ed4e9005549788e6b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 0}
+  spriteRenderers: []
   flashDuration: 0.1
   flashColor: {r: 0.9622642, g: 0.24510492, b: 0.24510492, a: 1}
   knockbackForce: 1

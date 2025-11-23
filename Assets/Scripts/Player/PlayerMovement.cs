@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private InputAction playerInput;
+    public float moveSpeed = 5f;
 
     private Vector2 movement;
     private Rigidbody2D rb;
@@ -57,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.linearVelocity = movement * moveSpeed;
+    }
+
+    public void IncreaseMoveSpeed(float amount)
+    {
+        moveSpeed += amount;
     }
 }
 
