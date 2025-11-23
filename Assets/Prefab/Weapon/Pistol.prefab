@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 14
+  m_SortingOrder: 4
   m_Sprite: {fileID: 8403215288983880825, guid: 6ab434bd9faf41845bb7c1dd9d63a833, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -163,7 +163,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8eeeee4dae320ac4fbc86c72ae86b78d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 1
@@ -255,7 +255,7 @@ Transform:
   m_GameObject: {fileID: 6812904709474458381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4557, y: -0.7163, z: 0}
+  m_LocalPosition: {x: 3, y: -0.7163, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -307,7 +307,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 4910465537759540958, guid: 1aa7a35a9b6196843b3281525d2c61e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
   magazineSize: 12
   currentAmmo: 12
   damage: 10
-  fireRate: 2
+  fireRate: 4
   reloadDuration: 3
   WeaponIcon: {fileID: 4910465537759540958, guid: 39c3801216524b742b32a8daec7cec48, type: 3}
   bulletPrefab: {fileID: 2847511356022224388, guid: ae374e342de7b2141ae2e16fc316cae7, type: 3}
@@ -349,5 +349,5 @@ MonoBehaviour:
       Data3: -1481673836
       Data4: 405950913
     Path: event:/SFX/HandgunShot
-  shakeIntensity: 7
+  shakeIntensity: 6.42
   shakeDuration: 0.18

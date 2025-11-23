@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 5370201107774231385}
   - component: {fileID: 1763570620965968235}
   - component: {fileID: 3660411274647546290}
+  - component: {fileID: 3844891409543848548}
   m_Layer: 5
   m_Name: Card2
   m_TagString: Untagged
@@ -236,8 +237,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.7660377, g: 0, b: 0, a: 1}
+    m_PressedColor: {r: 0.04905659, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -274,6 +275,22 @@ MonoBehaviour:
   title: {fileID: 4750910598253555518}
   description: {fileID: 286802837160659243}
   pickButton: {fileID: 1763570620965968235}
+--- !u!114 &3844891409543848548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690223259959164446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8c78e0790999c48a30fe921d30087c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.1
+  hoverDuration: 0.15
+  clickScale: 0.9
+  clickDuration: 0.1
 --- !u!1 &1744474315448078413
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,7 +343,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -335,7 +352,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 29
   m_TargetDisplay: 0
 --- !u!114 &616628251313214050
 MonoBehaviour:
@@ -543,6 +560,7 @@ GameObject:
   - component: {fileID: 4371435446358861443}
   - component: {fileID: 4173685186840012769}
   - component: {fileID: 1875429600909476340}
+  - component: {fileID: 8260193615147311754}
   m_Layer: 5
   m_Name: Card1
   m_TagString: Untagged
@@ -630,7 +648,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.78113204, g: 0.022107378, b: 0.022107378, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -668,6 +686,22 @@ MonoBehaviour:
   title: {fileID: 5968841088219842822}
   description: {fileID: 6516021884643967966}
   pickButton: {fileID: 4173685186840012769}
+--- !u!114 &8260193615147311754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992776514116977006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8c78e0790999c48a30fe921d30087c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverScale: 1.1
+  hoverDuration: 0.15
+  clickScale: 0.9
+  clickDuration: 0.1
 --- !u!1 &4486850193148300070
 GameObject:
   m_ObjectHideFlags: 0
