@@ -14,6 +14,9 @@ public class EnemyHandler : MonoBehaviour
     [Header("XP Reward")]
     [SerializeField] private int xpReward = 15;
 
+    [Header("Score Reward")]
+    [SerializeField] private int scoreReward = 100;
+
     // Sesuaikan dengan Reference di Shader Graph
     private const string DissolveProperty = "_Fade";
 
@@ -65,12 +68,24 @@ public class EnemyHandler : MonoBehaviour
         }
     }
 
+    private void GiveScoreToPlayer()
+    {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddScore(scoreReward);
+            Debug.Log($"{name} died → Gave {scoreReward} Score.");
+        }
+    }
+
+
     private void HandleDeath()
     {
         if (isDead) return;
         isDead = true;
 
         GiveXPToPlayer();
+        GiveScoreToPlayer();
+
 
         DisableMovement();
 
