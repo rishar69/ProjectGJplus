@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Handgun : Weapon
+public class MachineGun : Weapon
 {
     public Bullet bulletPrefab;
     public Transform firePoint;
 
     private void Start()
     {
-        currentAmmo = magazineSize; 
+        currentAmmo = magazineSize;
     }
 
     private void Update()
@@ -23,7 +23,7 @@ public class Handgun : Weapon
         if (!CanShoot()) return;
 
         Bullet b = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        b.damage = damage; // each weapon's damage
+        b.damage = damage; // set bullet damage per weapon
         b.SetDirection(firePoint.right);
 
         ConsumeAmmo();
