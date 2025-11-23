@@ -52,6 +52,9 @@ public class PlayerLevel : MonoBehaviour
         ApplyCurveScaling();
 
         OnLevelUp?.Invoke(level);
+
+        UpgradeSystem.Instance.GiveRandomUpgrades();
+
         Debug.Log($"LEVEL UP! New Level: {level}, Next XP Needed: {XPNeeded}");
     }
 

@@ -58,4 +58,14 @@ public class Armor : MonoBehaviour
         OnArmorBroken?.Invoke();
         Debug.Log("Armor broken!");
     }
+
+    public void IncreaseMaxArmor(float amount)
+    {
+        maxArmor += amount;
+        CurrentArmor += amount;
+
+        CurrentArmor = Mathf.Clamp(CurrentArmor, 0, maxArmor);
+
+        OnArmorChanged?.Invoke(ArmorPercent);
+    }
 }

@@ -11,6 +11,9 @@ public class EnemyHandler : MonoBehaviour
     [Header("Dissolve Settings")]
     [SerializeField] private float dissolveSpeed = 1.5f;
 
+    [Header("XP Reward")]
+    [SerializeField] private int xpReward = 15;
+
     // Sesuaikan dengan Reference di Shader Graph
     private const string DissolveProperty = "_Fade";
 
@@ -48,19 +51,32 @@ public class EnemyHandler : MonoBehaviour
         CleanUpMaterials();
     }
 
+    private void GiveXPToPlayer()
+    {
+        PlayerLevel player = FindFirstObjectByType<PlayerLevel>();
+        if (player != null)
+        {
+            player.AddXP(xpReward);
+            Debug.Log($"{name} died → Gave {xpReward} XP to player.");
+        }
+        else
+        {
+            Debug.LogWarning("No PlayerLevel found in scene!");
+        }
+    }
+
     private void HandleDeath()
     {
         if (isDead) return;
         isDead = true;
+
+        GiveXPToPlayer();
 
         DisableMovement();
 
         if (animator != null)
             animator.SetTrigger("Death");
 
-        // PILIH SALAH SATU:
-        // 1) langsung dissolve (baris di bawah aktif)
-        // 2) pakai AnimationEvent -> COMMENT 2 baris di bawah dan panggil StartDissolveFromAnim dari anim
         StartDissolve();
     }
 

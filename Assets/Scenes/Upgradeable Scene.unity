@@ -1725,7 +1725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79ca50bc4c168294dac2ad0bc9b36229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 1592279544}
+  stats: {fileID: 0}
   level: {fileID: 1592279543}
   statsText: {fileID: 1770529890}
 --- !u!114 &1415817443
@@ -1740,7 +1740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27c26cff2d002e44b0c812936175dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 1592279543}
+  playerLevel: {fileID: 0}
+  xpPerPress: 50
 --- !u!4 &1415817444
 Transform:
   m_ObjectHideFlags: 0
@@ -1976,10 +1977,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1592279546}
-  - component: {fileID: 1592279544}
   - component: {fileID: 1592279542}
   - component: {fileID: 1592279545}
   - component: {fileID: 1592279543}
+  - component: {fileID: 1592279547}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1999,7 +2000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1ef3b7a7bc8174dad6ab4f545f5719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 1592279544}
+  stats: {fileID: 0}
 --- !u!114 &1592279543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2014,29 +2015,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   currentXP: 0
-  xpPerLevelBase: 100
---- !u!114 &1592279544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1592279541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89453f6a30d0dc04989b107c3209060f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseAttack: 10
-  baseHP: 100
-  baseMoveSpeed: 5
-  baseAmmo: 30
-  baseFireRate: 2
-  attack: 0
-  hp: 0
-  moveSpeed: 0
-  ammo: 0
-  fireRate: 0
+  baseXP: 100
+  xpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1592279545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2074,6 +2059,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1592279547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592279541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27c26cff2d002e44b0c812936175dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLevel: {fileID: 1592279543}
+  xpPerPress: 50
 --- !u!1 &1595375438
 GameObject:
   m_ObjectHideFlags: 0

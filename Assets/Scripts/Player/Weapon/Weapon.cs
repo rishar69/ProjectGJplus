@@ -35,4 +35,15 @@ public abstract class Weapon : MonoBehaviour
     {
         currentAmmo = full ? magazineSize : magazineSize / 2;
     }
+
+    public void IncreaseDamage(float amount)
+    {
+        damage += amount;
+    }
+
+    public void IncreaseMagazine(int amount)
+    {
+        magazineSize += amount;
+        currentAmmo = magazineSize; // refill since magazine size changed
+    }
 }
