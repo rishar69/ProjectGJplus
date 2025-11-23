@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
@@ -17,31 +18,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInput.Enable();
+        if (playerInput != null)
+            playerInput.Enable();
+        else
+            Debug.LogError("[PlayerMovement] playerInput belum di-assign di Inspector!");
     }
 
     private void OnDisable()
     {
-        playerInput.Disable();
+        if (playerInput != null)
+            playerInput.Disable();
     }
 
     private void Update()
     {
         if (isShielding)
         {
-            movement = Vector2.zero; // prevent input while shielding
+            movement = Vector2.zero;
             return;
         }
 
-        movement = playerInput.ReadValue<Vector2>();
+        if (playerInput != null)
+        {
+            movement = playerInput.ReadValue<Vector2>();
+        }
+        else
+        {
+            movement = Vector2.zero;
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = movement * moveSpeed;
-
-        // Ensure player stops completely when shielding
         if (isShielding)
+        {
             rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        rb.linearVelocity = movement * moveSpeed;
     }
 }

@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [SerializeField] EventReference menuMusic;
-
+    [SerializeField] EventReference gameplayMusic;
     EventInstance currentMusic;
 
     private void Awake()
@@ -19,6 +19,17 @@ public class AudioManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
+    public void PlayGameplayMusic()
+{
+    // Stop music yang sedang jalan (menu/music lain)
+    if (currentMusic.isValid())
+        currentMusic.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
+    // Mulai gameplay music
+    currentMusic = RuntimeManager.CreateInstance(gameplayMusic);
+    currentMusic.start();
+}
+
 
     public void PlayMenuMusic()
     {

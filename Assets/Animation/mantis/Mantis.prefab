@@ -803,7 +803,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8653719598885068355, guid: edfa628bf8058514e96aafb19283f7f5, type: 3}
       propertyPath: m_Name
-      value: Mantis 1
+      value: Mantis
       objectReference: {fileID: 0}
     - target: {fileID: -8653719598885068355, guid: edfa628bf8058514e96aafb19283f7f5, type: 3}
       propertyPath: m_TagString
@@ -1240,6 +1240,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: edfa628bf8058514e96aafb19283f7f5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3805955799344331376}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: edfa628bf8058514e96aafb19283f7f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5346150352641844382}
   m_SourcePrefab: {fileID: 4843985084834002234, guid: edfa628bf8058514e96aafb19283f7f5, type: 3}
 --- !u!4 &274194143025094904 stripped
 Transform:
@@ -1508,6 +1511,24 @@ MonoBehaviour:
   - {fileID: 5152639206633579907}
   - {fileID: 7781010433627185335}
   dissolveSpeed: 0.4
+--- !u!114 &5346150352641844382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5602440218389082452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb56a17605254ed4e9005549788e6b41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  flashDuration: 0.1
+  flashColor: {r: 0.9622642, g: 0.24510492, b: 0.24510492, a: 1}
+  knockbackForce: 1
+  stunDuration: 0.15
+  stunned: 0
 --- !u!4 &5680990695025366687 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 328477577367160438, guid: edfa628bf8058514e96aafb19283f7f5, type: 3}

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using Unity.Cinemachine; // CM 3.x
 
 public class QTEManager : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class QTEManager : MonoBehaviour
     [Header("QTE Settings")]
     public QTEBar qteBarPrefab;
     public float qteDuration = 3f;
-    public float cameraZoomAmount = 3f; // Orthographic size decrease
+
+    [Header("Camera (Cinemachine 3.x) Settings")]
+    public CinemachineCamera virtualCamera;      // <== pakai CinemachineCamera (CM 3.x)
+    public float cameraZoomAmount = 3f;
     public float cameraZoomSpeed = 5f;
 
-    private Camera mainCamera;
     private float originalCameraSize;
     private Coroutine qteCoroutine;
 
@@ -21,7 +24,19 @@ public class QTEManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
 
-        mainCamera = Camera.main;
+        // auto find CinemachineCamera kalau lupa assign di Inspector
+        if (virtualCamera == null)
+            virtualCamera = FindObjectOfType<CinemachineCamera>();
+
+        if (virtualCamera != null)
+        {
+            // 2D: kamera utama sudah orthographic, cukup simpan Orthographic Size
+            originalCameraSize = virtualCamera.Lens.OrthographicSize;
+        }
+        else
+        {
+            Debug.LogError("[QTEManager] CinemachineCamera tidak ditemukan!");
+        }
     }
 
     public void StartQTE(Transform player, float duration, Action<bool> onComplete)
@@ -32,36 +47,71 @@ public class QTEManager : MonoBehaviour
 
     private IEnumerator QTERoutine(Transform player, float duration, Action<bool> onComplete)
     {
-        // Save camera size
-        originalCameraSize = mainCamera.orthographicSize;
-
-        // Camera zoom in
-        float targetSize = originalCameraSize - cameraZoomAmount;
-        while (Mathf.Abs(mainCamera.orthographicSize - targetSize) > 0.01f)
+        if (virtualCamera == null)
         {
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetSize, cameraZoomSpeed * Time.unscaledDeltaTime);
-            yield return null;
+            Debug.LogError("[QTEManager] Kamera kosong, zoom QTE tidak berjalan.");
         }
-        mainCamera.orthographicSize = targetSize;
 
-        // Spawn QTEBar
+        // ---------- ZOOM IN ----------
+        if (virtualCamera != null)
+        {
+            float startSize = virtualCamera.Lens.OrthographicSize;
+            originalCameraSize = startSize; // backup
+
+            float targetSize = Mathf.Max(0.1f, startSize - cameraZoomAmount);
+
+            while (Mathf.Abs(virtualCamera.Lens.OrthographicSize - targetSize) > 0.01f)
+            {
+                float newSize = Mathf.Lerp(
+                    virtualCamera.Lens.OrthographicSize,
+                    targetSize,
+                    cameraZoomSpeed * Time.unscaledDeltaTime
+                );
+
+                var lens = virtualCamera.Lens;
+                lens.OrthographicSize = newSize;
+                virtualCamera.Lens = lens;
+
+                yield return null;
+            }
+
+            var finalLensIn = virtualCamera.Lens;
+            finalLensIn.OrthographicSize = targetSize;
+            virtualCamera.Lens = finalLensIn;
+        }
+
+        // ---------- SPAWN QTE ----------
         QTEBar bar = Instantiate(qteBarPrefab, player.position + Vector3.up * 2f, Quaternion.identity);
-        bar.SetPlayer(player); // follow player
-        bar.StartQTE(duration, (success) => { onComplete?.Invoke(success); });
+        bar.SetPlayer(player);
+        bar.StartQTE(duration, success => onComplete?.Invoke(success));
 
-        // Wait until QTE finishes
         while (!bar.inputReceived)
             yield return null;
 
         Destroy(bar.gameObject);
 
-        // Restore camera
-        while (Mathf.Abs(mainCamera.orthographicSize - originalCameraSize) > 0.01f)
+        // ---------- ZOOM OUT ----------
+        if (virtualCamera != null)
         {
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, originalCameraSize, cameraZoomSpeed * Time.unscaledDeltaTime);
-            yield return null;
+            while (Mathf.Abs(virtualCamera.Lens.OrthographicSize - originalCameraSize) > 0.01f)
+            {
+                float newSize = Mathf.Lerp(
+                    virtualCamera.Lens.OrthographicSize,
+                    originalCameraSize,
+                    cameraZoomSpeed * Time.unscaledDeltaTime
+                );
+
+                var lens = virtualCamera.Lens;
+                lens.OrthographicSize = newSize;
+                virtualCamera.Lens = lens;
+
+                yield return null;
+            }
+
+            var finalLensOut = virtualCamera.Lens;
+            finalLensOut.OrthographicSize = originalCameraSize;
+            virtualCamera.Lens = finalLensOut;
         }
-        mainCamera.orthographicSize = originalCameraSize;
 
         qteCoroutine = null;
     }

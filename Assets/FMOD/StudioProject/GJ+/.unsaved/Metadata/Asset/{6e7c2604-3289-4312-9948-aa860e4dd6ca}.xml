@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EncodableAsset" id="{6e7c2604-3289-4312-9948-aa860e4dd6ca}">
+		<property name="assetPath">
+			<value>Click Button/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{bee255bf-52e8-4af2-a297-c5c9be874a18}</destination>
+		</relationship>
+	</object>
+</objects>
