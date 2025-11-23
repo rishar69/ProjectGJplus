@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{5fb94681-e3a2-4834-8bd8-9805e2fe7baf}">
+		<property name="assetPath">
+			<value>Music/Quiet Lake 96kHz.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>61.714281249999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{bee255bf-52e8-4af2-a297-c5c9be874a18}</destination>
+		</relationship>
+	</object>
+</objects>
