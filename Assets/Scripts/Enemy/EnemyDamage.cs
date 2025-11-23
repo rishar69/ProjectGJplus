@@ -6,24 +6,31 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger hit: " + collision.name);
-
+        // Only hit the player
         if (!collision.CompareTag("Player"))
-        {
-            Debug.Log("Not player, ignoring.");
             return;
-        }
 
-        Health h = collision.GetComponentInParent<Health>();
+        Health playerHealth = collision.GetComponentInParent<Health>();
+        Armor playerArmor = collision.GetComponentInParent<Armor>();
+        SheildMode shield = collision.GetComponentInParent<SheildMode>();
 
-        if (h != null)
+        float damageAmount = contactDamage;
+
+        // If shield is active, convert damage to 1 for armor only
+        if (shield != null && shield.isShielding)
         {
-            Debug.Log("Damage applied!");
-            h.TakeDamage(contactDamage);
+            shield.AbsorbDamage(ref damageAmount); // armor takes 1, health unaffected
         }
         else
         {
-            Debug.Log("Player hit but no Health component found.");
+            // Not shielding: damage goes straight to health
+            if (playerHealth != null)
+                playerHealth.TakeDamage(damageAmount);
+
+            // Armor is untouched
+            damageAmount = 0f;
         }
+
+        Debug.Log($"Damage applied: {damageAmount}");
     }
 }

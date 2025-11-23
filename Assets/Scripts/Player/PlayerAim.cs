@@ -46,7 +46,6 @@ public class PlayerAim : MonoBehaviour
         if (angle > 90 || angle < -90)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
-            Debug.Log("fliped");
         }
         else
         {
